@@ -4,7 +4,107 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body style="background-color: black">
+<canvas class="myCanvas">
+    <p>Add suitable fallback here.</p>
+</canvas>
 
+
+<script>
+
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+    var cellTypes = {
+        cOn: 1,
+        cOff: 0
+    };
+
+    function createBlock(numStates, _value, clockOn) {
+        let block = [numStates];
+        let clock = (clockOn ? numStates : 0);
+        for (let i = 0; i < numStates; i++) {
+            if (_value > 0) {
+                block[i] = cellTypes.cOn;
+                _value--;
+            } else {
+                block[i] = cellTypes.cOff;
+            }
+        }
+        return block;
+    }
+
+    const canvas = document.querySelector('.myCanvas');
+    const width = canvas.width = 250;
+    const height = canvas.height = 250;
+    pos = 0;
+    data = [1, 2, 3, 4, 5, 6, 7, 8, 8];
+    multiplier = 50;
+    count = 0;
+    value = 0;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgb(0, 0, 0)';
+    ctx.fillRect(0, 0, width, height);
+    var imageData = ctx.getImageData(0, 0, width, height);
+    color = 2255;
+    numStates = 8;
+    clock = true;
+
+    function loop() {
+        if (count == multiplier) {
+            value = data[pos % 9];
+
+            clock = !clock;
+            pos++;
+
+            pos2 = pos;
+            if (pos2 % 2 == 0) {
+                red = 8;
+            } else if (pos2 % 5 == 0) {
+                red = 4;
+            } else {
+                red = 1;
+            }
+
+
+            if (pos2 % 3 == 0) {
+                green = 1;
+            } else if (pos2 % 5 == 0) {
+                green = 4;
+            } else {
+                green = 8;
+            }
+
+            blockRed = createBlock(numStates, red, 0);
+            blockGreen = createBlock(numStates, green, 0);
+
+            for (let i = 0; i < imageData.data.length / 2; i += numStates * 4) {
+                // Modify pixel data
+                shuffleArray(blockRed);
+                shuffleArray(blockGreen);
+                for (let j = 0; j < numStates; j++) {
+                    pixelRed = blockRed[j];
+                    pixelGreen = blockGreen[j];
+                    imageData.data[i + j * 4 + 0] = (((pixelRed == cellTypes.cOn)) ? 255 : 0); // R value
+                    imageData.data[i + j * 4 + 1] = (((pixelGreen == cellTypes.cOn)) ? 255 : 0); // G value
+                    imageData.data[i + j * 4 + 2] = 0; // B value
+                    imageData.data[i + j * 4 + 3] = 255; // A value
+                }
+            }
+            count = 0;
+            ctx.putImageData(imageData, 0, 0);
+        }
+        count++;
+
+        requestAnimationFrame(loop);
+    }
+
+    loop();
+</script>
 </body>
 </html>
