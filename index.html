@@ -53,13 +53,14 @@
     var imageData = ctx.getImageData(0, 0, width, height);
     color = 2255;
     numStates = 8;
-    clock = true;
+
 
     function loop() {
+        let value;
         if (count == multiplier) {
             value = data[pos % 9];
 
-            clock = !clock;
+
             pos++;
 
             pos2 = pos;
