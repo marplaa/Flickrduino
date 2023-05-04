@@ -1,3 +1,73 @@
+Vielen Dank für die Beschreibung. Basierend darauf, kann ich Ihnen eine Beispiel-HTML-Struktur geben, die Ihren Anforderungen entspricht:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GUI Beispiel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Fügen Sie hier Ihre Stilregeln hinzu */
+    </style>
+</head>
+<body>
+<label for="dropdown">Dropdown-Liste:</label>
+<select id="dropdown" name="dropdown" onchange="showFields()">
+    <option value="">Auswählen...</option>
+    <option value="wifi">WiFi Credentials</option>
+    <option value="custom">Custom</option>
+</select>
+<br><br>
+<div id="wifiFields" style="display:none;">
+    <label for="ssid">SSID:</label>
+    <input type="text" id="ssid" name="ssid"><br><br>
+    <label for="passphrase">Passphrase:</label>
+    <input type="text" id="passphrase" name="passphrase"><br><br>
+</div>
+<div id="customFields" style="display:none;">
+    <label for="key">Key:</label>
+    <input type="text" id="key" name="key"><br><br>
+    <label for="value">Value:</label>
+    <input type="text" id="value" name="value"><br><br>
+</div>
+<button id="sendPauseButton" onclick="toggleSendPause()">Send</button>
+<br><br>
+<canvas id="canvas" width="500" height="500"></canvas>
+
+<script>
+    function showFields() {
+        var dropdown = document.getElementById("dropdown");
+        var wifiFields = document.getElementById("wifiFields");
+        var customFields = document.getElementById("customFields");
+
+        if (dropdown.value == "wifi") {
+            wifiFields.style.display = "block";
+            customFields.style.display = "none";
+        } else if (dropdown.value == "custom") {
+            wifiFields.style.display = "none";
+            customFields.style.display = "block";
+        } else {
+            wifiFields.style.display = "none";
+            customFields.style.display = "none";
+        }
+    }
+
+    function toggleSendPause() {
+        var sendPauseButton = document.getElementById("sendPauseButton");
+
+        if (sendPauseButton.innerHTML == "Send") {
+            sendPauseButton.innerHTML = "Pause";
+        } else {
+            sendPauseButton.innerHTML = "Send";
+        }
+    }
+</script>
+</body>
+</html>
+```
+
+Beachten Sie, dass die obige HTML-Struktur nur ein Beispiel ist und Sie sie Ihren spezifischen Anforderungen anpassen können. Sie müssen auch die entsprechenden Stilregeln hinzufügen, um die GUI so zu gestalten, wie Sie es möchten.
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +83,7 @@
 <script>
 
     const shuffleArray = array => {
-        for (let i = array.length - 1; i > 0; i--) {
+        for (let i = array.length - 1; i > 0; i&#45;&#45;) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = array[i];
             array[i] = array[j];
@@ -31,7 +101,7 @@
         for (let i = 0; i < numStates; i++) {
             if (_value > 0) {
                 block[i] = cellTypes.cOn;
-                _value--;
+                _value&#45;&#45;;
             } else {
                 block[i] = cellTypes.cOff;
             }
@@ -109,3 +179,4 @@
 </script>
 </body>
 </html>
+-->
